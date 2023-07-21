@@ -1,13 +1,12 @@
 import React from 'react'
 import OKVED from './OKVED.json'
-import './App.css';
 import { Table } from './components/table';
 
 function App() {
   const data = React.useMemo(() => OKVED, [])
 
   return (
-    <div className="App">
+    <div>
       <Table data={data} />
     </div>
   );

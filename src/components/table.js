@@ -1,22 +1,25 @@
 import React from 'react'
 import { Row } from './row'
+import { styled } from 'styled-components'
 
-const RecursiveRows = ({ rows }) => {
-  return (
-    rows.map(row => (
-      <Row key={row.id} row={row}>
-        <RecursiveRows rows={row.children} />
-      </Row>
-    ))
-  )
+const TableStyled = styled.table`
+  border-collapse: collapse;
+`
+
+const RecursiveRows = ({ rows, showCheckbox = true, nestingCounter = 0}) => {
+  return rows.map((row) => (
+    <Row key={row.id} row={row} showCheckbox={showCheckbox} nestingCounter={nestingCounter}>
+      <RecursiveRows rows={row.children} nestingCounter={nestingCounter + 1} />
+    </Row>
+  ))
 }
 
 export const Table = ({ data }) => {
   return (
-    <table>
+    <TableStyled>
       <tbody>
-        <RecursiveRows rows={data} />
+        <RecursiveRows rows={data} showCheckbox={false} />
       </tbody>
-    </table>
+    </TableStyled>
   )
 }
