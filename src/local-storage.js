@@ -20,10 +20,9 @@ export const checkIfRowExist = (rowId) => {
   return Boolean(rows[rowId])
 }
 
-export const getRowIdsToOpen = () => {
+export const getRowsToOpen = () => {
   const rows = getRows()
   const paths = Object.values(rows)
-  const ids = paths.map(p => p.split('-')).flat()
-  console.log(ids)
+  const ids = paths.map((p) => p.split('-')).flat()
   return Array.from(new Set(ids))
 }

@@ -1,27 +1,53 @@
 import React from 'react'
 import { Row } from './row'
 import { styled } from 'styled-components'
-import { getRowIdsToOpen } from '../utils'
+import { getRowsToOpen } from '../local-storage'
 
 const TableStyled = styled.table`
   border-collapse: collapse;
 `
 
-const RecursiveRows = ({ rows, showCheckbox = true, nestingCounter = 0, path = '', rowIdsToOpen }) => {
+const RecursiveRows = ({
+  rows,
+  showCheckbox = true,
+  nestingCounter = 0,
+  path = '',
+  rowsToOpen,
+  searchValue,
+}) => {
   return rows.map((row) => (
-    <Row key={row.id.toString()} row={row} showCheckbox={showCheckbox} nestingCounter={nestingCounter} path={path} rowIdsToOpen={rowIdsToOpen}>
-      <RecursiveRows rows={row.children} nestingCounter={nestingCounter + 1} rowIdsToOpen={rowIdsToOpen} />
+    <Row
+      key={row.id.toString()}
+      row={row}
+      showCheckbox={showCheckbox}
+      nestingCounter={nestingCounter}
+      path={path}
+      rowsToOpen={rowsToOpen}
+      searchValue={searchValue}
+    >
+      <RecursiveRows
+        rows={row.children}
+        nestingCounter={nestingCounter + 1}
+        rowsToOpen={rowsToOpen}
+        path={path ? `${path}-${row.id}` : row.id}
+        searchValue={searchValue}
+      />
     </Row>
   ))
 }
 
-export const Table = ({ data }) => {
-  const rowIdsToOpen = React.useMemo(() => getRowIdsToOpen(), [])
+export const Table = ({ data, searchValue }) => {
+  const rowsToOpen = React.useMemo(() => getRowsToOpen(), [])
 
   return (
     <TableStyled>
       <tbody>
-        <RecursiveRows rows={data} showCheckbox={false} rowIdsToOpen={rowIdsToOpen}/>
+        <RecursiveRows
+          rows={data}
+          showCheckbox={false}
+          rowsToOpen={rowsToOpen}
+          searchValue={searchValue}
+        />
       </tbody>
     </TableStyled>
   )
