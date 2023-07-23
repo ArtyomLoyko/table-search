@@ -5,6 +5,7 @@ import { getRowsToOpen } from '../local-storage'
 
 const TableStyled = styled.table`
   border-collapse: collapse;
+  border-spacing: 0;
 `
 
 const RecursiveRows = ({
@@ -12,8 +13,8 @@ const RecursiveRows = ({
   showCheckbox = true,
   nestingCounter = 0,
   path = '',
-  rowsToOpen,
-  searchValue,
+  rowsToOpen = [],
+  searchValue = '',
 }) => {
   return rows.map((row) => (
     <Row
@@ -41,7 +42,7 @@ export const Table = ({ data, searchValue }) => {
 
   return (
     <TableStyled>
-      <tbody>
+      <tbody key={searchValue}>
         <RecursiveRows
           rows={data}
           showCheckbox={false}

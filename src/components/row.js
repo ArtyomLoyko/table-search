@@ -3,16 +3,21 @@ import styled from 'styled-components'
 import { Checkbox } from './checkbox'
 import { useCheckbox, useRowClick, useSearch } from '../hooks'
 
-const PADDING = 30
+const PADDING = 5
+const PADDING_LEFT = 30
 
 const Tr = styled.tr`
   border: solid 1px;
 `
 
 const Td = styled.td`
-  padding-left: ${(p) => p.$nestingCounter * PADDING}px;
+  padding: ${PADDING}px;
+  padding-left: ${(p) => p.$nestingCounter * PADDING_LEFT + PADDING}px;
   position: relative;
   cursor: ${(p) => (p.$isClickable ? 'pointer' : 'auto')};
+  &:hover {
+    background-color: gray;
+  }
 `
 
 export const Row = ({
