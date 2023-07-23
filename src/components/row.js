@@ -7,7 +7,7 @@ const PADDING = 5
 const PADDING_LEFT = 30
 
 const Tr = styled.tr`
-  border: solid 1px;
+  border: solid 1px gray;
 `
 
 const Td = styled.td`

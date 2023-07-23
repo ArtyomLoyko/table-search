@@ -10,6 +10,6 @@ export const SearchInput = ({value, setValue}) => {
   const onChange = React.useCallback((e) => setValue(e.target.value), [setValue])
   
   return (
-    <Input type='text' placeholder='Search' value={value} onChange={onChange} />
+    <Input type='text' placeholder='Поиск' value={value} onChange={onChange} />
   )
 }
